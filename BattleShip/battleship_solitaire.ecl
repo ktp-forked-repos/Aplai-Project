@@ -230,8 +230,7 @@ ladderConstraint(Grid,Ladder) :-
     D is Ladder[I - 1, J - 1, 4, 1..4],
     SumA #= sum(R) + sum(LL),
     SumB #= sum(U) + sum(D),
-    X #= (SumA or SumB),
-    max(SumA, Max),
+    Max #= max(SumA or SumB),
     Tij #= Max
   ).
 
