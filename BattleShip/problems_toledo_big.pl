@@ -3,6 +3,10 @@ problem( 0, [ (7,10,circle), (1,6,water) ],
  			[2, 4, 3, 3, 2, 4, 1, 1, 0, 0] ,
  			[0, 5, 0, 2, 2, 3, 1, 3, 2, 2] ).
 
+problem( -1, [ (4,2,top), (5,2,middle), (6,2,middle), (7, 2, bottom) ],
+        			[2, 4, 3, 3, 2, 4, 1, 1, 0, 0] ,
+        			[0, 5, 0, 2, 2, 3, 1, 3, 2, 2] ).
+
 % 2222 Solutions for this problem.
 problem( 1, [ (6,3,circle), (5,7,circle), (6,9,water) ],
  			[3, 2, 1, 1, 1, 2, 0, 4, 1, 5] ,

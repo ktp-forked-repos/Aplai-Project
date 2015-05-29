@@ -22,7 +22,8 @@
 %     occupied by submarines is 4, the number of squares occupied by destroyers is 6,
 %     and so on.
 %
-% The model is not yet complete, since there is nothing to ensure that Tij = p, p > 0 <=> the square (i, j) occurs in a run of exactly p occupied squares.
+% The model is not yet complete, since there is nothing to ensure that Tij = p, p >
+% 0 <=> the square (i, j) occurs in a run of exactly p occupied squares.
 % Auxiliary ladder variables can be introduced to represent how far the stretch of occupied squares
 % adjacent to an occupied square runs in each direction. The Boolean variables r ijk, 1 ≤
 % k ≤ 4 indicate whether there is a run of occupied squares from (i, j) to (i, j + k). If
@@ -60,27 +61,38 @@ solve(TipsArr, RowCountList, ColCountList, Solution) :-
   dim(Grid, [12,12,2]),
   Grid[1..12,1..12,1] :: 0..1,
   Grid[1..12,1..12,2] :: 0..4,
-  dim(Ladder,[10,10,4,4]),
-  Ladder[1..10,1..10,1..4,1..4] :: 0..1,
+  dim(Ladder,[10,10,4,3]),
+  Ladder[1..10,1..10,1..4,1..3] :: 0..1,
   (foreach((X,Y,Tip), TipsArr), param(Grid, TipsArr)
     do
     getElementValue(Tip, EncValue, Value, Occupied),
     convertHint(Tip, Occupied,Value,X,Y,Grid)
   ),
-  cardinalityConstraint(Grid),
-  printboard(Grid),
   ladderConstraint(Grid,Ladder),
+  cardinalityConstraint(Grid),
+  %writeln("Cardinality constrained"),
   printboard(Grid),
+  onzeFkNConstraintG(Grid),
+  %writeln("Extra constrained"),
+  %printboard(Grid),
   borderConstraints(Grid),
-  printboard(Grid),
+  %writeln("Border elements constrained"),
+  %printboard(Grid),
   occupiedConstraint(Grid),
-  printboard(Grid),
+  %writeln("Occupation should be constrained"),
+  %printboard(Grid),
   channelingConstraint(Grid),
-  printboard(Grid),
+  %writeln("channeling constrained"),
+  %printboard(Grid),
   tallyConstraint(Grid,RowCountArr,ColCountArr),
-  printboard(Grid),
-  term_variables(Grid, Variables),
-  labeling(Variables),
+  %writeln("Tally constrained"),
+  %printboard(Grid),
+
+  %writeln("Ladder constrained"),
+  %printboard(Grid),
+  %term_variables(Grid, Variables),
+  labeling(Grid),
+  writeln("final result"),
   printboard(Grid).
 
 convertHint(Hint, Occupied,Value,X,Y,Grid) :-
@@ -90,11 +102,11 @@ convertHint(Hint, Occupied,Value,X,Y,Grid) :-
   T is Grid[GridXcoor,GridYcoor,2],
   T :: Value,
   S is Occupied,
-  affectsOfHint(Hint,GridXcoor,GridYcoor,Grid).
+  effectsOfHint(Hint,GridXcoor,GridYcoor,Grid).
 
-affectsOfHint(circle,X,Y,Grid).
-affectsOfHint(water,X,Y,Grid).
-affectsOfHint(left,X,Y,Grid) :-
+effectsOfHint(circle,X,Y,Grid).
+effectsOfHint(water,X,Y,Grid).
+effectsOfHint(left,X,Y,Grid) :-
   S1 is Grid[X-1,Y,1],
   S2 is Grid[X+1,Y,1],
   S3 is Grid[X,Y-1,1],
@@ -105,7 +117,7 @@ affectsOfHint(left,X,Y,Grid) :-
   S1 #= 0,
   S4 #= 1,
   T4 :: 2..4.
-affectsOfHint(right,X,Y,Grid) :-
+effectsOfHint(right,X,Y,Grid) :-
   S1 is Grid[X-1,Y,1],
   S2 is Grid[X+1,Y,1],
   S3 is Grid[X,Y-1,1],
@@ -116,7 +128,7 @@ affectsOfHint(right,X,Y,Grid) :-
   S1 #= 0,
   S3 #= 1,
   T3 :: 2..4.
-affectsOfHint(top,X,Y,Grid) :-
+effectsOfHint(top,X,Y,Grid) :-
   S1 is Grid[X-1,Y,1],
   S2 is Grid[X+1,Y,1],
   T2 is Grid[X+1,Y,2],
@@ -127,7 +139,7 @@ affectsOfHint(top,X,Y,Grid) :-
   S1 #= 0,
   S2 #= 1,
   T2 :: 2..4.
-affectsOfHint(bottom,X,Y,Grid) :-
+effectsOfHint(bottom,X,Y,Grid) :-
   S1 is Grid[X-1,Y,1],
   T1 is Grid[X-1,Y,2],
   S2 is Grid[X+1,Y,1],
@@ -138,7 +150,7 @@ affectsOfHint(bottom,X,Y,Grid) :-
   S4 #= 0,
   S1 #= 1,
   T1 :: 2..4.
-affectsOfHint(middle,X,Y,Grid) :-
+effectsOfHint(middle,X,Y,Grid) :-
   T is Grid[X,Y,2],
   S1 is Grid[X-1,Y,1],
   S2 is Grid[X+1,Y,1],
@@ -146,16 +158,22 @@ affectsOfHint(middle,X,Y,Grid) :-
   S4 is Grid[X,Y+1,1],
   T :: 3..4,
   S1 #= S2,
-  S3 #= S4.
+  S3 #= S4,
+  T2 is Grid[X+1,Y,2],
+  T3 is Grid[X,Y-1,2],
+  T4 is Grid[X,Y+1,2],
+  T2 #= T3,
+  T3 #= T4,
+  T4 #:: [0,3..4].
 
-% Hoekjes constraint + channeling constraint.
+
+% Hoekjes constraint
 occupiedConstraint(Grid) :-
   (multifor([I,J],2,11,[1,1]),param(Grid)
   do
     K is I,
     L is J,
     El is Grid[K,L,1],
-    TEl is Grid[K,L,2],
     El1 is Grid[K-1,L-1,1],
     El2 is Grid[K+1,L-1,1],
     El3 is Grid[K+1,L+1,1],
@@ -164,6 +182,31 @@ occupiedConstraint(Grid) :-
     =>(El #= 1, El2 #= 0,1),
     =>(El #= 1, El3 #= 0,1),
     =>(El #= 1, El4 #= 0,1)
+  ).
+
+onzeFkNConstraintG(Grid) :-
+  (multifor([I,J],2,11,[1,1]),param(Grid)
+  do
+  K is I,
+  L is J,
+  Tog is Grid[K, L, 2],
+  Sog is Grid[K, L, 1],
+  TUp is Grid[K - 1, L, 2],
+  TDo is Grid[K + 1, L, 2],
+  TLe is Grid[K, L + 1, 2],
+  TRe is Grid[K, L - 1, 2],
+  SUp is Grid[K - 1, L, 1],
+  SDo is Grid[K + 1, L, 1],
+  SLe is Grid[K, L + 1, 1],
+  SRe is Grid[K, L - 1, 1],
+  #=(Sog, SUp, B),
+  #=(Sog, SDo, C),
+  #=(Sog, SLe, D),
+  #=(Sog, SRe, E),
+  #=(Tog, TUp, B),
+  #=(Tog, TDo, C),
+  #=(Tog, TLe, D),
+  #=(Tog, TRe, E)
   ).
 
 channelingConstraint(Grid) :-
@@ -175,7 +218,8 @@ channelingConstraint(Grid) :-
     TEl is Grid[K,L,2],
     #=(El,0,C),
     #=(TEl,0,C),
-    =>(TEl #:: 1..4,El #= 1,1)
+    #=(El, 1, B),
+    #::(TEl, [1..4], B)
   ).
 
 borderConstraints(Grid) :-
@@ -209,9 +253,13 @@ tallyConstraint(Grid,RowCountArr,ColCountArr) :-
 cardinalityConstraint(Grid) :-
   GridArr is Grid[2..11,2..11,2],
   flatten(GridArr,List),
+  % 4 subs
   occurrences(1,List,4),
+  % 3 destroyers
   occurrences(2,List,6),
+  % 2 cruisers
   occurrences(3,List,6),
+  % 1 battle ship
   occurrences(4,List,4).
 
 ladderConstraint(Grid,Ladder) :-
@@ -220,131 +268,120 @@ ladderConstraint(Grid,Ladder) :-
     K is I,
     L is J,
     Tij is Grid[K,L,2],
+    Sij is Grid[K,L,1],
     ladderRight(Grid, 1, K, L,Ladder),
     ladderLeft(Grid, 1, K, L, Ladder),
     ladderUp(Grid, 1, K, L, Ladder),
     ladderDown(Grid, 1, K, L, Ladder),
-    R is Ladder[I - 1, J - 1, 1, 1..4],
-    LL is Ladder[I - 1, J - 1, 2, 1..4],
-    U is Ladder[I - 1, J - 1, 3, 1..4],
-    D is Ladder[I - 1, J - 1, 4, 1..4],
-    SumA #= sum(R) + sum(LL),
-    SumB #= sum(U) + sum(D),
-    Max #= max(SumA or SumB),
-    Tij #= Max
+    RI is Ladder[I - 1, J - 1, 1, 1..3],
+    LL is Ladder[I - 1, J - 1, 2, 1..3],
+    UP is Ladder[I - 1, J - 1, 3, 1..3],
+    DO is Ladder[I - 1, J - 1, 4, 1..3],
+    SumA #= sum(RI) + sum(LL),
+    SumB #= sum(UP) + sum(DO),
+    Max #= max(SumA, SumB),
+    Tij #= Max + Sij
   ).
 
 ladderRight(Grid, K, I, J,Ladder) :-
    K == 1,
-   10 >= J + K,
    % Sij
-   El is Grid[I,J,1],
+   Sij is Grid[I,J,1],
    % Sij + 1
-   Nel is Grid[I,J + 1,1],
+   Sijplus1 is Grid[I,J + 1,1],
    % Access the Rij1
    Rij1 is Ladder[I-1,J-1,1,K],
-   aIffBAndC(Rij1, El, Nel),
+   aIffBAndC(Rij1, Sij, Sijplus1),
    Next is K + 1,
    ladderRight(Grid, Next, I, J,Ladder).
 ladderRight(Grid, K, I, J,Ladder) :-
    K > 1,
-   4 >= K,
+   3 >= K,
    10 >= J + K,
    % Sij update
-   El is Grid[I,J + K ,1],
+   Sijk is Grid[I,J + K ,1],
    Rijk is Ladder[I-1,J-1,1,K],
    RijkMin1 is Ladder[I-1,J-1,1,K-1],
-   aIffBAndC(Rijk, El, RijkMin1),
+   aIffBAndC(Rijk, Sijk, RijkMin1),
    Next is K + 1,
    ladderRight(Grid, Next, I, J,Ladder).
 ladderRight(_, _, _, _,_).
 
 ladderLeft(Grid, K, I, J, Ladder) :-
   K == 1,
-  J - K > 0,
   % Sij
-  El is Grid[I,J,1],
+  Sij is Grid[I,J,1],
   % Sij + 1
-  Nel is Grid[I,J - 1,1],
+  SijMin1 is Grid[I,J - 1,1],
   % Access the Rij1
-  Rij1 is Ladder[I-1,J-1,2,K],
-  aIffBAndC(Rij1,El,Nel),
+  Lij1 is Ladder[I-1,J-1,2,K],
+  aIffBAndC(Lij1,Sij,SijMin1),
   Next is K + 1,
   ladderLeft(Grid, Next, I, J,Ladder).
 ladderLeft(Grid, K, I, J,Ladder) :-
   K > 1,
-  4 >= K,
+  3 >= K,
   J - K  > 0,
-  El is Grid[I,J - K ,1],
-  Rijk is Ladder[I-1,J-1,2,K],
-  RijkMin1 is Ladder[I-1,J-1,2,K-1],
-  aIffBAndC(Rijk,El,RijkMin1),
+  Sijk is Grid[I,J - K ,1],
+  Lijk is Ladder[I-1,J-1,2,K],
+  LijkMin1 is Ladder[I-1,J-1,2,K-1],
+  aIffBAndC(Lijk,Sijk,LijkMin1),
   Next is K + 1,
   ladderLeft(Grid, Next, I, J,Ladder).
 ladderLeft(_,_,_,_,_).
 
 ladderUp(Grid, K, I, J, Ladder) :-
   K == 1,
-  I - K > 0,
   % Sij
-  El is Grid[I,J,1],
+  Sij is Grid[I,J,1],
   % Sij + 1
-  Nel is Grid[I - 1,J,1],
+  SijMin1 is Grid[I - 1,J,1],
   % Access the Rij1
-  Rij1 is Ladder[I-1,J-1,3,K],
-  aIffBAndC(Rij1, El, Nel),
+  Uij1 is Ladder[I-1,J-1,3,K],
+  aIffBAndC(Uij1, Sij, SijMin1),
   Next is K + 1,
   ladderUp(Grid, Next, I, J,Ladder).
 ladderUp(Grid, K, I, J, Ladder) :-
   K > 1,
-  4 >= K,
+  3 >= K,
   I - K > 0,
-  El is Grid[I - K,J ,1],
-  Rijk is Ladder[I-1,J-1,3,K],
-  RijkMin1 is Ladder[I-1,J-1,3,K-1],
-  aIffBAndC(Rijk, El, RijkMin1),
+  Sijk is Grid[I - K,J ,1],
+  Uijk is Ladder[I-1,J-1,3,K],
+  UijkMin1 is Ladder[I-1,J-1,3,K-1],
+  aIffBAndC(Uijk, Sijk, UijkMin1),
   Next is K + 1,
   ladderUp(Grid, Next, I, J,Ladder).
 ladderUp(_,_,_,_,_).
 
 ladderDown(Grid, K, I, J,Ladder) :-
   K == 1,
-  10 >= I + K,
   % Sij
-  El is Grid[I,J,1],
+  Sij is Grid[I,J,1],
   % Sij + 1
-  Nel is Grid[I + 1,J,1],
+  Sij1 is Grid[I + 1,J,1],
   % Access the Rij1
-  Rij1 is Ladder[I-1,J-1,4,K],
-  aIffBAndC(Rij1, El, Nel),
+  Dij1 is Ladder[I-1,J-1,4,K],
+  aIffBAndC(Dij1, Sij, Sij1),
   Next is K + 1,
   ladderDown(Grid, Next, I, J,Ladder).
 ladderDown(Grid, K, I, J, Ladder) :-
   K > 1,
-  4 >= K,
+  3 >= K,
   10 >= I + K,
-  El is Grid[I + K,J ,1],
-  Rijk is Ladder[I-1,J-1,4,K],
-  RijkMin1 is Ladder[I-1,J-1,4,K-1],
-  aIffBAndC(Rijk,El,RijkMin1),
+  Sijk is Grid[I + K,J ,1],
+  Dijk is Ladder[I-1,J-1,4,K],
+  DijkMin1 is Ladder[I-1,J-1,4,K-1],
+  aIffBAndC(Dijk,Sijk,DijkMin1),
   Next is K + 1,
-  ladderRight(Grid, Next, I, J,Ladder).
+  ladderDown(Grid, Next, I, J,Ladder).
 ladderDown(_, _, _, _, _).
-
-%% checkLadder(El,Nel,_,_,_,Min3) :-
-%%   Min3 == 1,
-%%   El #= 1,
-%%   Nel #= 1.
-%% checkLadder(_,_,Rij1,Min1,Min2,_) :-
-%%     Min1 == 1,
-%%     Min2 == 1,
-%%     Rij1 #= 1.
-%% checkLadder(_,_,_,_,_,_).
 
 aIffBAndC(A,B,C) :-
   #=(A, 1, D),
   and(B, C, E),
-  #=(E, 1, D).
+  #=(E, 1, D),
+  #=( E, 0, Q),
+  #=(A, 0, Q).
   %((A #= 1, ((B #= 1) and (C#=1)) ,1).
 
 printboard(Grid) :-
@@ -376,8 +413,7 @@ printboard(Grid) :-
         )
       ),
       writeln("  ")
-    ),
-    writeln("WOW").
+    ).
 
 getElementValue(water, '.', 0, 0).
 getElementValue(circle, c, 1, 1).
