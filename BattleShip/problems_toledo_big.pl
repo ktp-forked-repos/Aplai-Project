@@ -3,6 +3,20 @@ problem( 0, [ (7,10,circle), (1,6,water) ],
  			[2, 4, 3, 3, 2, 4, 1, 1, 0, 0] ,
  			[0, 5, 0, 2, 2, 3, 1, 3, 2, 2] ).
 
+       problem(666, [(1,1,water),(1,2,water),(1,3,water),(1,4,water),(1,5,water),(1,6,water),(1,7,water),(1,8,water),(1,9,water),(1,10,water),
+(2,1,water),(2,2,water),(2,3,water),(2,4,circle),(2,5,water),(2,6,water),(2,7,water),(2,8,water),(2,9,water),(2,10,water),
+(3,1,water),(3,2,water),(3,3,water),(3,4,water),(3,5,water),(3,6,circle),(3,7,water),(3,8,water),(3,9,water),(3,10,water),
+(4,1,water),(4,2,water),(4,3,water),(4,4,water),(4,5,water),(4,6,water),(4,7,water),(4,8,water),(4,9,water),(4,10,water),
+(5,1,top),(5,2,water),(5,3,top),(5,4,water),(5,5,water),(5,6,water),(5,7,top),(5,8,water),(5,9,top),(5,10,water),
+(6,1,bottom),(6,2,water),(6,3,bottom),(6,4,water),(6,5,circle),(6,6,water),(6,7,middle),(6,8,water),(6,9,bottom),(6,10,water),
+(7,1,water),(7,2,water),(7,3,water),(7,4,water),(7,5,water),(7,6,water),(7,7,bottom),(7,8,water),(7,9,water),(7,10,water),
+(8,1,water),(8,2,water),(8,3,water),(8,4,water),(8,5,water),(8,6,water),(8,7,water),(8,8,water),(8,9,water),(8,10,top),
+(9,1,water),(9,2,water),(9,3,circle),(9,4,water),(9,5,water),(9,6,water),(9,7,water),(9,8,water),(9,9,water),(9,10,middle),
+(10,1,water),(10,2,water),(10,3,water),(10,4,water),(10,5,left),(10,6,middle),(10,7,middle),(10,8,right),(10,9,water),(10,10,bottom)
+] ,
+      [0, 1, 1, 0, 4, 5, 1, 1, 2, 5] ,
+      [2, 0, 3, 1, 2, 2, 4, 1, 2, 3] ).
+
 problem( -1, [ (4,2,top), (5,2,middle), (6,2,middle), (7, 2, bottom) ],
         			[2, 4, 3, 3, 2, 4, 1, 1, 0, 0] ,
         			[0, 5, 0, 2, 2, 3, 1, 3, 2, 2] ).

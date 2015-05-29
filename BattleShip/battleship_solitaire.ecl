@@ -1,7 +1,8 @@
 :- lib(ic).
 :- lib(ic_global).
 
-% –   Sij = 1 if square (i, j) is occupied by a ship segment and 0 otherwise, for all∀i, j, 0 ≤ i, j ≤ n + 1.
+% –   Sij = 1 if square (i, j) is occupied by a ship segment and 0 otherwise,
+%for all∀i, j, 0 ≤ i, j ≤ n + 1.
 % –   Tij = 0, if square (i, j) is unoccupied, or 1, 2, 3, 4 if the square is occupied by (part
 %     of) a submarine, destroyer, cruiser or battleship, respectively, ∀i, j, 0 ≤ i, j ≤ n+1.
 %     (Note that the type of a ship is the same as its length.)
@@ -69,28 +70,14 @@ solve(TipsArr, RowCountList, ColCountList, Solution) :-
     convertHint(Tip, Occupied,Value,X,Y,Grid)
   ),
   ladderConstraint(Grid,Ladder),
+  printboard(Grid),
   %allTheSingleLadiesConstraint(Grid),
   cardinalityConstraint(Grid),
-  %writeln("Cardinality constrained"),
-  printboard(Grid),
   onzeFkNConstraintG(Grid),
-  %writeln("Extra constrained"),
-  %printboard(Grid),
   borderConstraints(Grid),
-  %writeln("Border elements constrained"),
-  %printboard(Grid),
   occupiedConstraint(Grid),
-  %writeln("Occupation should be constrained"),
-  %printboard(Grid),
   channelingConstraint(Grid),
-  %writeln("channeling constrained"),
-  %printboard(Grid),
   tallyConstraint(Grid,RowCountArr,ColCountArr),
-  %writeln("Tally constrained"),
-  %printboard(Grid),
-
-  %writeln("Ladder constrained"),
-  %printboard(Grid),
   %term_variables(Grid, Variables),
   labeling(Grid),
   writeln("final result"),
@@ -102,7 +89,7 @@ convertHint(Hint, Occupied,Value,X,Y,Grid) :-
   GridYcoor is Y + 1,
   S is Grid[GridXcoor,GridYcoor,1],
   T is Grid[GridXcoor,GridYcoor,2],
-  T :: Value,
+  T #:: Value,
   S is Occupied,
   effectsOfHint(Hint,GridXcoor,GridYcoor,Grid).
 
@@ -153,20 +140,22 @@ effectsOfHint(bottom,X,Y,Grid) :-
   S1 #= 1,
   T1 :: 2..4.
 effectsOfHint(middle,X,Y,Grid) :-
-  T is Grid[X,Y,2],
-  S1 is Grid[X-1,Y,1],
-  S2 is Grid[X+1,Y,1],
-  S3 is Grid[X,Y-1,1],
-  S4 is Grid[X,Y+1,1],
+  T  is Grid[X,Y,2],
+  SUp is Grid[X-1,Y,1],
+  TUp is Grid[X-1,Y,2],
+  SDown is Grid[X+1,Y,1],
+  TDown is Grid[X+1,Y,2],
+  SLeft is Grid[X,Y-1,1],
+  TLeft is Grid[X,Y-1,2],
+  SRight is Grid[X,Y+1,1],
+  TRight is Grid[X,Y+1,2],
   T :: 3..4,
-  S1 #= S2,
-  S3 #= S4,
-  T2 is Grid[X+1,Y,2],
-  T3 is Grid[X,Y-1,2],
-  T4 is Grid[X,Y+1,2],
-  T2 #= T3,
-  T3 #= T4,
-  T4 #:: [0,3..4].
+  SUp #= SDown,
+  SRight #= SLeft,
+  TLeft #= TRight,
+  TUp #= TDown,
+  TRight #:: [0,3..4],
+  TDown #:: [0,3..4].
 
 
 % Hoekjes constraint
@@ -205,7 +194,8 @@ allTheSingleLadiesConstraint(Grid) :-
     and(C, D, G),
     and(E, F, H),
     and(G, H, WHUT),
-    #=(Tij, 1, WHUT)
+    and(B, WHUT, WORK),
+    #=(Tij, 1, WORK)
   ).
 
 
@@ -248,19 +238,22 @@ channelingConstraint(Grid) :-
   ).
 
 borderConstraints(Grid) :-
-  (multifor([I,J],[1,1],[11,12],[1,11]),param(Grid)
-  do
-  L is J,
-  K is I,
-  K1 is I +1,
-  S1 is Grid[L,K,1],
-  S2 is Grid[L,K1,1],
-  S3 is Grid[K,L,1],
-  S4 is Grid[K1,L,1],
-  S1 #= S2,
-  S2 #= S3,
-  S3 #= S4
-  ).
+  SRij1 is Grid[1..12,1,1],
+  SRij12 is Grid[1..12,12,1],
+  SKolom1 is Grid[1,1..12,1],
+  SKolom12 is Grid[12,1..12,1],
+  TRij1 is Grid[1..12,1,2],
+  TRij12 is Grid[1..12,12,2],
+  TKolom1 is Grid[1,1..12,2],
+  TKolom12 is Grid[12,1..12,2],
+  (foreach(Element,SRij1) do Element #= 0),
+  (foreach(Element,SRij12) do Element #= 0),
+  (foreach(Element,SKolom1) do Element #= 0),
+  (foreach(Element,SKolom12) do Element #= 0),
+  (foreach(Element,TRij1) do Element #= 0),
+  (foreach(Element,TRij12) do Element #= 0),
+  (foreach(Element,TKolom1) do Element #= 0),
+  (foreach(Element,TKolom12) do Element #= 0).
 
 tallyConstraint(Grid,RowCountArr,ColCountArr) :-
   (for(I,2,11),param(Grid,RowCountArr,ColCountArr)
