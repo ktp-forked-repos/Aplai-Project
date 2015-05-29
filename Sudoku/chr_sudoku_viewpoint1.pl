@@ -40,7 +40,14 @@ makeRowDomain([Element|RestRow],RowI,RowJ) :-
         RowJ1 is RowJ + 1,
         makeRowDomain(RestRow,RowI,RowJ1).
 
-rowConstraints @ element((X,Y1),[A]), element((X,Y2),[A]) <=> Y1 == Y2, element((X,Y1),[A]).
+% Indien er twee elementen in dezelfde rij staan met hetzelfde number, moeten de kolommen ook hetzelfde zijn,
+% anders gooien we beide elementen weg
+rowConstraints @ element((X,Y1),[A]), element((X,Y2),[A]) <=> Y1 \= Y2 | false.
+
+% Indien er twee elementen in dezelfde kolom staan met hetzelfde number, moeten de rijen ook hetzelfde zijn,
+% anders gooien we beide elementen weg.
+columConstraints @ element((X1,Y),[A]), element((X2,Y),[A]) <=>  X1 \= X2 | false.
+
 %printBoard(9,L), element((9,L),[A]) <=> writeln(A).
 %printBoard(K,9), element((K,9),[A]) <=> writeln(A), K1 is K + 1, printBoard(K1,1).
 %printBoard(K,L), element((K,L),[A]) <=> write(A), Y is L + 1, printBoard(K,Y).
