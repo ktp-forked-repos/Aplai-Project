@@ -285,12 +285,9 @@ ladderConstraint(Grid,Ladder) :-
 
 ladderRight(Grid, K, I, J,Ladder) :-
    K == 1,
-   % Sij
-   Sij is Grid[I,J,1],
-   % Sij + 1
-   Sijplus1 is Grid[I,J + 1,1],
-   % Access the Rij1
-   Rij1 is Ladder[I-1,J-1,1,K],
+   Sij is Grid[I, J, 1],
+   Sijplus1 is Grid[I, J + 1, 1],
+   Rij1 is Ladder[I-1, J-1, 1, K],
    aIffBAndC(Rij1, Sij, Sijplus1),
    Next is K + 1,
    ladderRight(Grid, Next, I, J,Ladder).
@@ -298,10 +295,9 @@ ladderRight(Grid, K, I, J,Ladder) :-
    K > 1,
    3 >= K,
    10 >= J + K,
-   % Sij update
-   Sijk is Grid[I,J + K ,1],
-   Rijk is Ladder[I-1,J-1,1,K],
-   RijkMin1 is Ladder[I-1,J-1,1,K-1],
+   Sijk is Grid[I, J + K , 1],
+   Rijk is Ladder[I-1, J-1, 1, K],
+   RijkMin1 is Ladder[I-1, J-1, 1, K-1],
    aIffBAndC(Rijk, Sijk, RijkMin1),
    Next is K + 1,
    ladderRight(Grid, Next, I, J,Ladder).
