@@ -305,11 +305,8 @@ ladderRight(_, _, _, _,_).
 
 ladderLeft(Grid, K, I, J, Ladder) :-
   K == 1,
-  % Sij
   Sij is Grid[I,J,1],
-  % Sij + 1
   SijMin1 is Grid[I,J - 1,1],
-  % Access the Rij1
   Lij1 is Ladder[I-1,J-1,2,K],
   aIffBAndC(Lij1,Sij,SijMin1),
   Next is K + 1,
@@ -328,11 +325,8 @@ ladderLeft(_,_,_,_,_).
 
 ladderUp(Grid, K, I, J, Ladder) :-
   K == 1,
-  % Sij
   Sij is Grid[I,J,1],
-  % Sij + 1
   SijMin1 is Grid[I - 1,J,1],
-  % Access the Rij1
   Uij1 is Ladder[I-1,J-1,3,K],
   aIffBAndC(Uij1, Sij, SijMin1),
   Next is K + 1,
