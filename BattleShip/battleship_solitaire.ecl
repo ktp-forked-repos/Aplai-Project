@@ -69,17 +69,17 @@ solve(TipsArr, RowCountList, ColCountList, Solution) :-
     getElementValue(Tip, _, Value, Occupied),
     convertHint(Tip, Occupied,Value,X,Y,Grid)
   ),
+  borderConstraints(Grid),
   ladderConstraint(Grid,Ladder),
-  printboard(Grid),
   %allTheSingleLadiesConstraint(Grid),
   cardinalityConstraint(Grid),
   onzeFkNConstraintG(Grid),
-  borderConstraints(Grid),
   occupiedConstraint(Grid),
   channelingConstraint(Grid),
   tallyConstraint(Grid,RowCountArr,ColCountArr),
   %term_variables(Grid, Variables),
   labeling(Grid),
+  X is Ladder[1,1,1, 1],
   writeln("final result"),
   printboard(Grid),
   Solution = Grid.
@@ -307,6 +307,9 @@ ladderRight(Grid, K, I, J,Ladder) :-
    Sijplus1 is Grid[I, J + 1, 1],
    Rij1 is Ladder[I-1, J-1, 1, K],
    aIffBAndC(Rij1, Sij, Sijplus1),
+   #=(Rij1, 0, Truth),
+   Rest is Ladder[I-1,J-1,1,1..3],
+   (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
    Next is K + 1,
    ladderRight(Grid, Next, I, J,Ladder).
 ladderRight(Grid, K, I, J,Ladder) :-
@@ -317,6 +320,9 @@ ladderRight(Grid, K, I, J,Ladder) :-
    Rijk is Ladder[I-1, J-1, 1, K],
    RijkMin1 is Ladder[I-1, J-1, 1, K-1],
    aIffBAndC(Rijk, Sijk, RijkMin1),
+   #=(Rijk, 0, Truth),
+   Rest is Ladder[I-1,J-1,1,K..3],
+   (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
    Next is K + 1,
    ladderRight(Grid, Next, I, J,Ladder).
 ladderRight(_, _, _, _,_).
@@ -327,6 +333,9 @@ ladderLeft(Grid, K, I, J, Ladder) :-
   SijMin1 is Grid[I,J - 1,1],
   Lij1 is Ladder[I-1,J-1,2,K],
   aIffBAndC(Lij1,Sij,SijMin1),
+  #=(Lij1, 0, Truth),
+  Rest is Ladder[I-1,J-1,2,1..3],
+  (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
   Next is K + 1,
   ladderLeft(Grid, Next, I, J,Ladder).
 ladderLeft(Grid, K, I, J,Ladder) :-
@@ -337,6 +346,9 @@ ladderLeft(Grid, K, I, J,Ladder) :-
   Lijk is Ladder[I-1,J-1,2,K],
   LijkMin1 is Ladder[I-1,J-1,2,K-1],
   aIffBAndC(Lijk,Sijk,LijkMin1),
+  #=(Lijk, 0, Truth),
+  Rest is Ladder[I-1,J-1,2,K..3],
+  (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
   Next is K + 1,
   ladderLeft(Grid, Next, I, J,Ladder).
 ladderLeft(_,_,_,_,_).
@@ -347,6 +359,9 @@ ladderUp(Grid, K, I, J, Ladder) :-
   SijMin1 is Grid[I - 1,J,1],
   Uij1 is Ladder[I-1,J-1,3,K],
   aIffBAndC(Uij1, Sij, SijMin1),
+  #=(Uij1, 0, Truth),
+  Rest is Ladder[I-1,J-1,3,1..3],
+  (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
   Next is K + 1,
   ladderUp(Grid, Next, I, J,Ladder).
 ladderUp(Grid, K, I, J, Ladder) :-
@@ -357,6 +372,9 @@ ladderUp(Grid, K, I, J, Ladder) :-
   Uijk is Ladder[I-1,J-1,3,K],
   UijkMin1 is Ladder[I-1,J-1,3,K-1],
   aIffBAndC(Uijk, Sijk, UijkMin1),
+  #=(Uijk, 0, Truth),
+  Rest is Ladder[I-1,J-1,3,K..3],
+  (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
   Next is K + 1,
   ladderUp(Grid, Next, I, J,Ladder).
 ladderUp(_,_,_,_,_).
@@ -367,6 +385,9 @@ ladderDown(Grid, K, I, J,Ladder) :-
   Sij1 is Grid[I + 1,J,1],
   Dij1 is Ladder[I-1,J-1,4,K],
   aIffBAndC(Dij1, Sij, Sij1),
+  #=(Dij1, 0, Truth),
+  Rest is Ladder[I-1,J-1,4,1..3],
+  (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
   Next is K + 1,
   ladderDown(Grid, Next, I, J,Ladder).
 ladderDown(Grid, K, I, J, Ladder) :-
@@ -377,16 +398,28 @@ ladderDown(Grid, K, I, J, Ladder) :-
   Dijk is Ladder[I-1,J-1,4,K],
   DijkMin1 is Ladder[I-1,J-1,4,K-1],
   aIffBAndC(Dijk,Sijk,DijkMin1),
+  #=(Dijk, 0, Truth),
+  Rest is Ladder[I-1,J-1,4,K..3],
+  (foreach(El, Rest),param(Truth) do =>(Truth #= 1, El #= 0, 1)),
   Next is K + 1,
   ladderDown(Grid, Next, I, J,Ladder).
 ladderDown(_, _, _, _, _).
 
+% A <=> B AND C
+% A <=> C AND B
+% Rij1 <=> Sij en Sij1
+% Rijk <=> RijkMin1 en Sijk
+%A = 0, 1 <=> 1 & 0
+%0 & 1 => A = 0
+%1 & 0 => A = 0
+%0 & 0 => A = 0
 aIffBAndC(A,B,C) :-
-  #=(A, 1, D),
   and(B, C, E),
+  #=(E, 0, Q),
   #=(E, 1, D),
-  #=( E, 0, Q),
+  #=(A, 1, D),
   #=(A, 0, Q).
+
   %((A #= 1, ((B #= 1) and (C#=1)) ,1).
 
 printboard(Grid) :-
