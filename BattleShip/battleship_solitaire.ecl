@@ -63,12 +63,13 @@ solve(TipsArr, RowCountList, ColCountList, Solution) :-
   Grid[1..12,1..12,2] :: 0..4,
   dim(Ladder,[10,10,4,3]),
   Ladder[1..10,1..10,1..4,1..3] :: 0..1,
-  (foreach((X,Y,Tip), TipsArr), param(Grid, TipsArr)
+  (foreach((X,Y,Tip), TipsArr), param(Grid)
     do
-    getElementValue(Tip, EncValue, Value, Occupied),
+    getElementValue(Tip, _, Value, Occupied),
     convertHint(Tip, Occupied,Value,X,Y,Grid)
   ),
   ladderConstraint(Grid,Ladder),
+  %allTheSingleLadiesConstraint(Grid),
   cardinalityConstraint(Grid),
   %writeln("Cardinality constrained"),
   printboard(Grid),
@@ -93,7 +94,8 @@ solve(TipsArr, RowCountList, ColCountList, Solution) :-
   %term_variables(Grid, Variables),
   labeling(Grid),
   writeln("final result"),
-  printboard(Grid).
+  printboard(Grid),
+  Solution = Grid.
 
 convertHint(Hint, Occupied,Value,X,Y,Grid) :-
   GridXcoor is X + 1,
@@ -104,8 +106,8 @@ convertHint(Hint, Occupied,Value,X,Y,Grid) :-
   S is Occupied,
   effectsOfHint(Hint,GridXcoor,GridYcoor,Grid).
 
-effectsOfHint(circle,X,Y,Grid).
-effectsOfHint(water,X,Y,Grid).
+effectsOfHint(circle,_,_,_).
+effectsOfHint(water,_,_,_).
 effectsOfHint(left,X,Y,Grid) :-
   S1 is Grid[X-1,Y,1],
   S2 is Grid[X+1,Y,1],
@@ -183,6 +185,29 @@ occupiedConstraint(Grid) :-
     =>(El #= 1, El3 #= 0,1),
     =>(El #= 1, El4 #= 0,1)
   ).
+
+allTheSingleLadiesConstraint(Grid) :-
+  (multifor([I,J],2,11,[1,1]),param(Grid)
+  do
+    K is I,
+    L is J,
+    Sij  is Grid[K, L,1],
+    Tij is Grid[K, L, 2],
+    SLeft is Grid[K, L-1,1],
+    SRight is Grid[K, L+1,1],
+    SDown is Grid[K+1, L,1],
+    SUp is Grid[K-1, L,1],
+    #=(Sij, 1, B),
+    #=(SLeft, 0, C),
+    #=(SRight, 0, D),
+    #=(SDown, 0, E ),
+    #=(SUp,0, F),
+    and(C, D, G),
+    and(E, F, H),
+    and(G, H, WHUT),
+    #=(Tij, 1, WHUT)
+  ).
+
 
 onzeFkNConstraintG(Grid) :-
   (multifor([I,J],2,11,[1,1]),param(Grid)
@@ -345,11 +370,8 @@ ladderUp(_,_,_,_,_).
 
 ladderDown(Grid, K, I, J,Ladder) :-
   K == 1,
-  % Sij
   Sij is Grid[I,J,1],
-  % Sij + 1
   Sij1 is Grid[I + 1,J,1],
-  % Access the Rij1
   Dij1 is Ladder[I-1,J-1,4,K],
   aIffBAndC(Dij1, Sij, Sij1),
   Next is K + 1,
@@ -375,9 +397,9 @@ aIffBAndC(A,B,C) :-
   %((A #= 1, ((B #= 1) and (C#=1)) ,1).
 
 printboard(Grid) :-
-    (foreacharg(Row,Grid), param(Grid)
+    (foreacharg(Row,Grid)
     do
-      (foreacharg(El,Row), param(Row)
+      (foreacharg(El,Row)
         do
         Henk is El[1],
         (
@@ -390,7 +412,7 @@ printboard(Grid) :-
         )
       ),
       write("          "),
-      (foreacharg(El,Row), param(Row)
+      (foreacharg(El,Row)
         do
         Henk is El[2],
         (
