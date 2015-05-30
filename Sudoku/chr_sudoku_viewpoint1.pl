@@ -1,6 +1,8 @@
 :- module(chr_sudoku_viewpoint1,[]).
 :- use_module(library(chr)).
 
+:- chr_option(optimize, full).
+
 :- chr_type list(T) ---> [] ; [T | list(T)].
 :- chr_type xvalue == natural.
 :- chr_type yvalue == natural.
