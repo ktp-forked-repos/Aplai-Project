@@ -15,8 +15,8 @@
 :- chr_constraint printBoard(+natural,+natural).
 
 solve(SudokuBoard) :- 
-        makeBoardDomain(SudokuBoard,1),
-        choiceNumber.
+        makeBoardDomain(SudokuBoard,1).
+        %choiceNumber.
         %printBoard(1,1).
 
 makeBoardDomain([],_).
@@ -54,10 +54,7 @@ makeVarElement(RowNumber, ColumnNumber, MatrixNumber) :-
         NextMatrixNumber is MatrixNumber + 1,
         makeVarElement(RowNumber,ColumnNumber,NextMatrixNumber).
 
-
-choiceNumber \ posElement(K,(X,Y),L) <=> member(N,L), element(K,(X,Y), N).
-
-rowConstraint @ element(K,(X,Y1),1)
+%rowConstraint @ element(K,(X,Y1),1)
 
 %columnConstraint @ element((X1,Y),A), element((X2,Y),A) <=> X1 == X2.
 
