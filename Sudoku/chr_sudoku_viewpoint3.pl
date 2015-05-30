@@ -11,11 +11,13 @@
 
 :- chr_constraint posElement(+matrixvalue,+position,+listOfPossibilities).
 :- chr_constraint choiceNumber/0.
+:- chr_constraint checkColCount(+matrixvalue,+position,+natural).
 :- chr_constraint element(+matrixvalue,+position,+natural).
 :- chr_constraint printBoard(+natural,+natural).
 
-solve(SudokuBoard) :- 
-        makeBoardDomain(SudokuBoard,1).
+solve(SudokuBoard) :-
+        makeBoardDomain(SudokuBoard,1),
+        checkColCount(_,(_,_), 0).
         %choiceNumber.
         %printBoard(1,1).
 
@@ -54,11 +56,11 @@ makeVarElement(RowNumber, ColumnNumber, MatrixNumber) :-
         NextMatrixNumber is MatrixNumber + 1,
         makeVarElement(RowNumber,ColumnNumber,NextMatrixNumber).
 
-checkRowCount
+%checkRowCount.
+checkColCount(_,(9,_),1) <=> true.
+element(MatrixNumber,(RowNumber, ColNumber), Value) \ checkColCount(MatrixNumber, (RowNumber, ColNumber), Count) <=> NewRowNumber is RowNumber + 1, NewCountValue is Count + Value, checkColCount(MatrixNumber, (NewRowNumber, ColNumber), NewCountValue).
 
-checkColCount
-
-propagateSum(RowNumber, ColumnNumber, MatrixNumber, Value)
+%propagateSum(RowNumber, ColumnNumber, MatrixNumber, Value)
 %rowConstraint @ element(K,(X,Y1),1)
 
 %columnConstraint @ element((X1,Y),A), element((X2,Y),A) <=> X1 == X2.
@@ -73,6 +75,3 @@ propagateSum(RowNumber, ColumnNumber, MatrixNumber, Value)
 %printBoard(9,9), element((9,9),A) <=> writeln(A).
 %printBoard(K,9), element((K,9),A) <=> writeln(A), K1 is K + 1, printBoard(K1,1).
 %printBoard(K,L), element((K,L),A) <=> write(A), Y is L + 1, printBoard(K,Y).
-
-
-
