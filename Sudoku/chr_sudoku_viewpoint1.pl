@@ -14,7 +14,7 @@
 :- chr_constraint element(+position,+natural).
 :- chr_constraint printBoard(+natural,+natural).
 
-solve(SudokuBoard) :- 
+solve(SudokuBoard) :-
         makeBoardDomain(SudokuBoard,1),
         printBoard(1,1).
 
