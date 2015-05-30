@@ -56,21 +56,39 @@ makeVarElement(RowNumber, ColumnNumber, MatrixNumber) :-
         NextMatrixNumber is MatrixNumber + 1,
         makeVarElement(RowNumber,ColumnNumber,NextMatrixNumber).
 
-%checkRowCount.
-checkColCount(_,(9,_),1) <=> true.
-element(MatrixNumber,(RowNumber, ColNumber), Value) \ checkColCount(MatrixNumber, (RowNumber, ColNumber), Count) <=> NewRowNumber is RowNumber + 1, NewCountValue is Count + Value, checkColCount(MatrixNumber, (NewRowNumber, ColNumber), NewCountValue).
+checkBox(X1,X2,Y1,Y2) :-
+        Block1 is (3*((X1-1) // 3)) + ((Y1-1) // 3) + 1,
+        Block2 is (3*((X2-1) // 3)) + ((Y2-1) // 3) + 1,
+        Block1 == Block2.
 
-%propagateSum(RowNumber, ColumnNumber, MatrixNumber, Value)
-%rowConstraint @ element(K,(X,Y1),1)
+rowconstraint @ element(A,(X,Y1),1), element(A,(X,Y2),1) <=> Y1 == Y2.
 
-%columnConstraint @ element((X1,Y),A), element((X2,Y),A) <=> X1 == X2.
+columnConstraint @ element(A,(X1,Y),1), element(A,(X2,Y),1) <=> X1 == X2.
 
-%blockconstraint @ element((X1,Y1),A), element((X2,Y2),A) <=> checkBox(X1,X2,Y1,Y2) | false.
+blockconstraint @ element(A,(X1,Y1),1), element(A,(X2,Y2),1) <=> checkBox(X1,X2,Y1,Y2) | false.
 
-%checkBox(X1,X2,Y1,Y2) :-
-%        Block1 is (3*((X1-1) // 3)) + ((Y1-1) // 3) + 1,
-%        Block2 is (3*((X2-1) // 3)) + ((Y2-1) // 3) + 1,
-%        Block1 == Block2.
+elementConstraint @ element(A,(X,Y),1), element(B,(X,Y),1) <=> X1 == X2.
+
+% zelfde matrix row
+eliminatePos, element(A,(X,Y2),AssignedValue) \ posElement(A,(X,Y1),ListPos) <=> 
+        Y1 \= Y2, select(AssignedValue,ListPos,NListPos) | posElement(A,(X,Y1),NListPos). 
+
+% zelfde matrix kolom
+eliminatePos, element(A,(X1,Y),AssignedValue) \ posElement(A,(X2,Y),ListPos) <=> 
+        X1 \= X2, select(AssignedValue,ListPos,NListPos) | posElement(A,(X2,Y),NListPos). 
+
+% zelfde matrix block
+eliminatePos, element(A,(X1,Y1),AssignedValue) \ posElement(A,(X2,Y2),ListPos) <=> 
+        checkBox(X1,X2,Y1,Y2), select(AssignedValue,ListPos,NListPos) | posElement(A,(X2,Y2),NListPos). 
+
+% zelfde element alle matrices
+eliminatePos, element(A,(X,Y),AssignedValue) \ posElement(B,(X,Y),ListPos) <=> 
+        A \= B, select(AssignedValue,ListPos,NListPos) | posElement(B,(X2,Y),NListPos). 
+
+eliminatePos <=> findSmallestDomain(2). 
+
+findSmallestDomain(DomainLength), posElement(A,(X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), element(A,(X,Y),K), eliminatePos. 
+
 
 %printBoard(9,9), element((9,9),A) <=> writeln(A).
 %printBoard(K,9), element((K,9),A) <=> writeln(A), K1 is K + 1, printBoard(K1,1).
