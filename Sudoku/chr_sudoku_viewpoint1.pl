@@ -14,7 +14,6 @@
 
 solve(SudokuBoard) :- 
         makeBoardDomain(SudokuBoard,1),
-        %find_solution,
         printBoard(1,1).
 
 makeBoardDomain([],_).
@@ -37,13 +36,6 @@ makeRowDomain([Element|RestRow],RowNumber,ColumnNumber) :-
         Column2 is ColumnNumber + 1,
         makeRowDomain(RestRow,RowNumber,Column2).
 
-find_solution :-
-        posElement(_,_),
-        choiceNumber,
-        find_solution.
-find_solution :- 
-        true.
-
 choiceNumber, posElement((X,Y),L) <=> member(N,L), element((X,Y), N).
 
 rowConstraint @ element((X,Y1),A), element((X,Y2),A) <=> Y1 == Y2.
@@ -59,4 +51,4 @@ checkBox(X1,X2,Y1,Y2) :-
 
 printBoard(9,9), element((9,9),A) <=> writeln(A).
 printBoard(K,9), element((K,9),A) <=> writeln(A), K1 is K + 1, printBoard(K1,1).
-printBoard(K,L), element((K,L),A) <=> write(A), Y is L + 1, printBoard(K,Y).
+printBoard(K,L), element((K,L),A) <=> write(A),write(" "), Y is L + 1, printBoard(K,Y).
