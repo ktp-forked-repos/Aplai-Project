@@ -54,6 +54,11 @@ makeVarElement(RowNumber, ColumnNumber, MatrixNumber) :-
         NextMatrixNumber is MatrixNumber + 1,
         makeVarElement(RowNumber,ColumnNumber,NextMatrixNumber).
 
+checkRowCount
+
+checkColCount
+
+propagateSum(RowNumber, ColumnNumber, MatrixNumber, Value)
 %rowConstraint @ element(K,(X,Y1),1)
 
 %columnConstraint @ element((X1,Y),A), element((X2,Y),A) <=> X1 == X2.
