@@ -16,7 +16,6 @@
 :- chr_constraint printBoard(+natural,+natural).
 :- chr_constraint findSmallestDomain(+natural).
 
-
 solve(SudokuBoard) :-
         makeBoardDomain(SudokuBoard,1),
         eliminatePos.
@@ -67,7 +66,7 @@ rowconstraint @ element(A,(X,Y1),1), element(A,(X,Y2),1) <=> Y1 \= Y2 | false.
 
 columnConstraint @ element(A,(X1,Y),1), element(A,(X2,Y),1) <=> X1 \= X2 | false.
 
-blockconstraint @ element(A,(X1,Y1),1), element(A,(X2,Y2),1) <=> checkBox(X1,X2,Y1,Y2) | false.
+blockConstraint @ element(A,(X1,Y1),1), element(A,(X2,Y2),1) <=> checkBox(X1,X2,Y1,Y2) | false.
 
 elementConstraint @ element(A,(X,Y),1), element(B,(X,Y),1) <=> A \= B | false.
 
@@ -86,9 +85,9 @@ eliminatePos, element(A,(X1,Y1),AssignedValue) \ posElement(A,(X2,Y2),ListPos) <
 eliminatePos, element(A,(X,Y),AssignedValue) \ posElement(B,(X,Y),ListPos) <=> 
         A \= B, select(AssignedValue,ListPos,NListPos) | member(P,NListPos),element(A,(X,Y),P). 
 
-eliminatePos <=> findSmallestDomain(2). 
+eliminatePos <=> findSmallestDomain(2).
 
-findSmallestDomain(DomainLength), posElement(A,(X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), element(A,(X,Y),K), eliminatePos. 
+findSmallestDomain(DomainLength), posElement(A,(X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), element(A,(X,Y),K), eliminatePos.
 
 
 %printBoard(9,9), element((9,9),A) <=> writeln(A).
