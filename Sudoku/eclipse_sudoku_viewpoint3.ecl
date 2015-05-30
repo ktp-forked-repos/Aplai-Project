@@ -37,7 +37,7 @@ convertThirdViewBoardToSudokuBoard(ThirdViewBoard,SudokuBoard) :-
     T is K,
     Element is ThirdViewBoard[R,S,T],
     (Element == 1
-    -> 
+    ->
       SudokuElement is SudokuBoard[R,S],
       SudokuElement #= T
     ;
@@ -46,15 +46,9 @@ convertThirdViewBoardToSudokuBoard(ThirdViewBoard,SudokuBoard) :-
   ).
 
 checkConstraints(ThirdViewBoard) :-
-  checkTotalNumbers(ThirdViewBoard),
   checkBlocks(ThirdViewBoard),
   checkRowsAndColums(ThirdViewBoard),
   checkElements(ThirdViewBoard).
-
-checkTotalNumbers(ThirdViewBoard) :-
-  ListBoard is ThirdViewBoard[1..9,1..9,1..9],
-  flatten(ListBoard,List),
-  occurrences(1,List,81).
 
 checkBlocks(ThirdViewBoard) :-
   (for(I,1,9), param(ThirdViewBoard)
@@ -145,4 +139,3 @@ printSudokuBoard(Board) :-
   writeln("  ")
   ),
   writeln("end").
-
