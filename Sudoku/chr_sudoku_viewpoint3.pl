@@ -10,14 +10,16 @@
 % matrix represents the matrix of the places for the given value.
 
 :- chr_constraint posElement(+matrixvalue,+position,+listOfPossibilities).
-:- chr_constraint choiceNumber/0.
+:- chr_constraint eliminatePos/0.
 :- chr_constraint checkColCount(+matrixvalue,+position,+natural).
 :- chr_constraint element(+matrixvalue,+position,+natural).
 :- chr_constraint printBoard(+natural,+natural).
+:- chr_constraint findSmallestDomain(+natural).
+
 
 solve(SudokuBoard) :-
         makeBoardDomain(SudokuBoard,1),
-        checkColCount(_,(_,_), 0).
+        eliminatePos.
         %choiceNumber.
         %printBoard(1,1).
 
@@ -61,29 +63,28 @@ checkBox(X1,X2,Y1,Y2) :-
         Block2 is (3*((X2-1) // 3)) + ((Y2-1) // 3) + 1,
         Block1 == Block2.
 
-rowconstraint @ element(A,(X,Y1),1), element(A,(X,Y2),1) <=> Y1 == Y2.
+rowconstraint @ element(A,(X,Y1),1), element(A,(X,Y2),1) <=> Y1 \= Y2 | false.
 
-columnConstraint @ element(A,(X1,Y),1), element(A,(X2,Y),1) <=> X1 == X2.
+columnConstraint @ element(A,(X1,Y),1), element(A,(X2,Y),1) <=> X1 \= X2 | false.
 
 blockconstraint @ element(A,(X1,Y1),1), element(A,(X2,Y2),1) <=> checkBox(X1,X2,Y1,Y2) | false.
 
-elementConstraint @ element(A,(X,Y),1), element(B,(X,Y),1) <=> X1 == X2.
+elementConstraint @ element(A,(X,Y),1), element(B,(X,Y),1) <=> A \= B | false.
 
 % zelfde matrix row
-eliminatePos, element(A,(X,Y2),AssignedValue) \ posElement(A,(X,Y1),ListPos) <=> 
-        Y1 \= Y2, select(AssignedValue,ListPos,NListPos) | posElement(A,(X,Y1),NListPos). 
+eliminatePos, element(A,(X,Y2),AssignedValue) \ posElement(A,(X,Y1),ListPos) <=> Y1 \= Y2, select(AssignedValue,ListPos,NListPos) | member(P,NListPos),element(A,(X,Y1),P). 
 
 % zelfde matrix kolom
 eliminatePos, element(A,(X1,Y),AssignedValue) \ posElement(A,(X2,Y),ListPos) <=> 
-        X1 \= X2, select(AssignedValue,ListPos,NListPos) | posElement(A,(X2,Y),NListPos). 
+        X1 \= X2, select(AssignedValue,ListPos,NListPos) | member(P,NListPos),element(A,(X2,Y),P).  
 
 % zelfde matrix block
 eliminatePos, element(A,(X1,Y1),AssignedValue) \ posElement(A,(X2,Y2),ListPos) <=> 
-        checkBox(X1,X2,Y1,Y2), select(AssignedValue,ListPos,NListPos) | posElement(A,(X2,Y2),NListPos). 
+        checkBox(X1,X2,Y1,Y2), select(AssignedValue,ListPos,NListPos) | member(P,NListPos),element(A,(X2,Y2),P). 
 
 % zelfde element alle matrices
 eliminatePos, element(A,(X,Y),AssignedValue) \ posElement(B,(X,Y),ListPos) <=> 
-        A \= B, select(AssignedValue,ListPos,NListPos) | posElement(B,(X2,Y),NListPos). 
+        A \= B, select(AssignedValue,ListPos,NListPos) | member(P,NListPos),element(A,(X,Y),P). 
 
 eliminatePos <=> findSmallestDomain(2). 
 
