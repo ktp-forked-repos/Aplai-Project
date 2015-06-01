@@ -1,61 +1,6 @@
 :- lib(ic).
 :- lib(ic_global).
 
-% –   Sij = 1 if square (i, j) is occupied by a ship segment and 0 otherwise,
-%for all∀i, j, 0 ≤ i, j ≤ n + 1.
-% –   Tij = 0, if square (i, j) is unoccupied, or 1, 2, 3, 4 if the square is occupied by (part
-%     of) a submarine, destroyer, cruiser or battleship, respectively, ∀i, j, 0 ≤ i, j ≤ n+1.
-%     (Note that the type of a ship is the same as its length.)
-%
-%     The primary constraints on these variables are:
-%     RandConstraintjes
-% –   S0,j = Sn+1,j = si,0 = si,n+1, ∀i, j, 0 <= i, j ≤ n + 1.
-%     Sommetje constraint
-% –   Sumj(Si,j) = Ri, where Ri is the tally (number of occupied squares) for row i; similarly,
-%     Sumi(Si,j) = Cj , where Cj is the tally for column j.
-%     Blokkie constraint
-% –   if Sij = 1, then si−1,j−1 = si−1,j+1 = si+1,j+1 = si+1,j−1 = 0.
-%     DomainNaarOccupied constraint
-% –   channelling constraints: Sij = (Tij > 0).
-% –   a global cardinality constraint ensures that:
-%     |{tij |tij = k, 1 ≤ i ≤ n, 1 ≤ j ≤ n}| = l
-%     where l = 4, 6, 6, 4 when k = 1, 2, 3, 4 respectively, i.e. the number of squares
-%     occupied by submarines is 4, the number of squares occupied by destroyers is 6,
-%     and so on.
-%
-% The model is not yet complete, since there is nothing to ensure that Tij = p, p >
-% 0 <=> the square (i, j) occurs in a run of exactly p occupied squares.
-% Auxiliary ladder variables can be introduced to represent how far the stretch of occupied squares
-% adjacent to an occupied square runs in each direction. The Boolean variables r ijk, 1 ≤
-% k ≤ 4 indicate whether there is a run of occupied squares from (i, j) to (i, j + k). If
-% rijk = 1, the square (i, j) is occupied by a ship that also occupies the square (i, j + k),
-% and of course all intervening squares, if any.
-% The constraints on the ladder variables are:
-% – rij1 = 1 iff sij = 1 and si,j+1 = 1.
-% – rij,k+1 = 1 iff rijk = 1 and si,j+k+1 = 1 for 1 ≤ k ≤ 3 and j + k ≤ n.
-% There are similar sets of ladder variables lijk, uijk, dijk, 1 ≤ k ≤ 4, for the squares
-% to the right, above and below the square (i, j), and the constraint ensuring the correct
-% value of tij is then:
-% tij = max(
-% k
-% rijk +
-% k
-% lijk,
-%
-% k
-% uijk +
-% k
-% dijk)
-% An initial hint relating to a square (i, j) is represented as constraints as follows:
-% – water: sij = 0.
-% – circle: si−1,j = si+1,j = si,j−1 = si,j+1 = 0.
-% – left; si−1,j = si+1,j = si,j−1 = 0, si,j+1 = 1 (and similarly for right, top and
-% bottom hints).
-% – middle: tij ≥ 3 and either si−1,j = si+1,j = 0 and si,j−1 = si,j+1 = 1 or
-% si−1,j = si+1,j = 0 and si,j−1 = si,j+1 = 1.
-% 3
-
-% Element van Grid ziet er als volgt uit: [S,T,R,L,U,D]
 solve(TipsArr, RowCountList, ColCountList, Solution) :-
   array_list(RowCountArr, RowCountList),
   array_list(ColCountArr, ColCountList),
