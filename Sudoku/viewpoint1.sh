@@ -1,9 +1,11 @@
 #!/bin/bash
 divide=1000000
 
-echo verydifficult
-/home/bavo/Downloads/eclipse_basic\ \(1\)/bin/x86_64_linux/clpeclipse -b eclipse_sudoku_viewpoint1.ecl -b sudex_toledo.pl -e "puzzles(P, verydifficult), pro(P)."
-
+echo verydifficultstart_time=`date +%3N`
+/home/bavo/Downloads/eclipse_basic\ \(1\)/bin/x86_64_linux/clpeclipse -b eclipse_sudoku_viewpoint1.ecl -b sudex_toledo.pl -e "puzzles(P, verydifficult), solve(P)."
+end_time=`date +%3N`
+elapsed_time=$(((end_time - start_time)))
+echo execution time was $elapsed_time ms.
 
 echo expert
 start_time=`date +%3N`

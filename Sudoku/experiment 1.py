@@ -14,6 +14,6 @@ for puzzle in Files:
     + "\(1\)/bin/x86_64_linux/clpeclipse -b eclipse_sudoku_viewpoint1.ecl "
     + "-b sudex_toledo.pl -e 'puzzles(P, " + puzzle + "), solve(P).'",
     shell=True, stdout=subprocess.PIPE).stdout.read()
-    stop = timeit.timeit()
     f.write(output + '\n')
+    stop = timeit.timeit()
     f.write('elapsed time in ms ' +  str(abs(stop - start)) + '\n \n')

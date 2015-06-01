@@ -1,95 +1,95 @@
 clue17
 Solution found after 1216 backtracks
 
-elapsed time in ms 0.0156688690186
+elapsed time in ms 0.012274980545
  
 clue18
 Solution found after 341 backtracks
 
-elapsed time in ms 0.000438928604126
+elapsed time in ms 0.0142030715942
  
 coloin
 Solution found after 763 backtracks
 
-elapsed time in ms 0.0162088871002
+elapsed time in ms 0.00201010704041
  
 eastermonster
 Solution found after 648 backtracks
 
-elapsed time in ms 0.01265001297
+elapsed time in ms 0.00868701934814
  
 expert
 Solution found after 5 backtracks
 
-elapsed time in ms 0.00627088546753
+elapsed time in ms 0.00156188011169
  
 extra1
 Solution found after 4229 backtracks
 
-elapsed time in ms 0.0119669437408
+elapsed time in ms 0.00335311889648
  
 extra2
 Solution found after 4236 backtracks
 
-elapsed time in ms 0.0163660049438
+elapsed time in ms 0.00294184684753
  
 extra3
 Solution found after 10786 backtracks
 
-elapsed time in ms 0.0115323066711
+elapsed time in ms 0.0225169658661
  
 extra4
 Solution found after 2856 backtracks
 
-elapsed time in ms 0.0178120136261
+elapsed time in ms 0.00925326347351
  
 goldennugget
 Solution found after 295 backtracks
 
-elapsed time in ms 0.00374603271484
+elapsed time in ms 0.000236988067627
  
 hard17
 Solution found after 1383 backtracks
 
-elapsed time in ms 0.00049090385437
+elapsed time in ms 0.0118329524994
  
 inkara2012
 Solution found after 160 backtracks
 
-elapsed time in ms 0.00870394706726
+elapsed time in ms 0.0132849216461
  
 lambda
 Solution found after 10786 backtracks
 
-elapsed time in ms 0.0103240013123
+elapsed time in ms 0.0104477405548
  
 sudowiki_nb28
 Solution found after 15642 backtracks
 
-elapsed time in ms 0.0184879302979
+elapsed time in ms 0.0113379955292
  
 sudowiki_nb49
 Solution found after 701 backtracks
 
-elapsed time in ms 0.00265407562256
+elapsed time in ms 0.0126421451569
  
 symme
 Solution found after 548 backtracks
 
-elapsed time in ms 0.00131797790527
+elapsed time in ms 0.000703811645508
  
 tarek_052
 Solution found after 53 backtracks
 
-elapsed time in ms 0.0114901065826
+elapsed time in ms 0.0117681026459
  
 verydifficult
 Solution found after 0 backtracks
 
-elapsed time in ms 0.0212409496307
+elapsed time in ms 0.0126619338989
  
 veryeasy
 Solution found after 28 backtracks
 
-elapsed time in ms 0.0105838775635
+elapsed time in ms 0.00174522399902
  

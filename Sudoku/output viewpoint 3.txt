@@ -12,7 +12,7 @@ begin
 274836159  
 end
 
-elapsed time in ms 0.00363302230835
+elapsed time in ms 0.0135340690613
  
 clue18
 Solution found after 5 backtracks
@@ -28,7 +28,7 @@ begin
 675824931  
 end
 
-elapsed time in ms 0.0121932029724
+elapsed time in ms 0.0156030654907
  
 coloin
 Solution found after 59 backtracks
@@ -44,7 +44,7 @@ begin
 491728653  
 end
 
-elapsed time in ms 0.0230181217194
+elapsed time in ms 0.0191400051117
  
 eastermonster
 Solution found after 35 backtracks
@@ -60,7 +60,7 @@ begin
 842736591  
 end
 
-elapsed time in ms 0.0087411403656
+elapsed time in ms 0.00588083267212
  
 expert
 Solution found after 0 backtracks
@@ -76,7 +76,7 @@ begin
 169287453  
 end
 
-elapsed time in ms 0.0102000236511
+elapsed time in ms 0.00457406044006
  
 extra1
 Solution found after 0 backtracks
@@ -92,7 +92,7 @@ begin
 876493521  
 end
 
-elapsed time in ms 0.0061309337616
+elapsed time in ms 0.0139100551605
  
 extra2
 Solution found after 0 backtracks
@@ -108,7 +108,7 @@ begin
 145279683  
 end
 
-elapsed time in ms 0.0219810009003
+elapsed time in ms 0.0014431476593
  
 extra3
 Solution found after 0 backtracks
@@ -124,7 +124,7 @@ begin
 875421936  
 end
 
-elapsed time in ms 0.01109790802
+elapsed time in ms 0.0073230266571
  
 extra4
 Solution found after 0 backtracks
@@ -140,7 +140,7 @@ begin
 875421936  
 end
 
-elapsed time in ms 0.0124959945679
+elapsed time in ms 0.00505208969116
  
 goldennugget
 Solution found after 78 backtracks
@@ -156,7 +156,7 @@ begin
 486725193  
 end
 
-elapsed time in ms 0.0112318992615
+elapsed time in ms 0.0137610435486
  
 hard17
 Solution found after 0 backtracks
@@ -172,7 +172,7 @@ begin
 254176893  
 end
 
-elapsed time in ms 0.0160028934479
+elapsed time in ms 0.00114583969116
  
 inkara2012
 Solution found after 20 backtracks
@@ -188,7 +188,7 @@ begin
 796318452  
 end
 
-elapsed time in ms 0.0105497837067
+elapsed time in ms 0.00501203536987
  
 lambda
 Solution found after 0 backtracks
@@ -204,7 +204,7 @@ begin
 875421936  
 end
 
-elapsed time in ms 0.00951194763184
+elapsed time in ms 0.0127470493317
  
 sudowiki_nb28
 Solution found after 549 backtracks
@@ -220,7 +220,7 @@ begin
 834751629  
 end
 
-elapsed time in ms 0.000126123428345
+elapsed time in ms 0.00740814208984
  
 sudowiki_nb49
 Solution found after 236 backtracks
@@ -236,7 +236,7 @@ begin
 463718925  
 end
 
-elapsed time in ms 0.0181522369385
+elapsed time in ms 0.0060760974884
  
 symme
 Solution found after 32 backtracks
@@ -252,7 +252,7 @@ begin
 428675193  
 end
 
-elapsed time in ms 0.0108292102814
+elapsed time in ms 0.00460910797119
  
 tarek_052
 Solution found after 10 backtracks
@@ -268,7 +268,7 @@ begin
 645791832  
 end
 
-elapsed time in ms 0.00675392150879
+elapsed time in ms 0.00564098358154
  
 verydifficult
 Solution found after 0 backtracks
@@ -284,7 +284,7 @@ begin
 259318764  
 end
 
-elapsed time in ms 0.00286602973938
+elapsed time in ms 0.022145986557
  
 veryeasy
 Solution found after 3 backtracks
@@ -300,5 +300,5 @@ begin
 987654321  
 end
 
-elapsed time in ms 0.0218818187714
+elapsed time in ms 0.0153422355652
  
