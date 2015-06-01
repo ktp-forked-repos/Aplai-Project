@@ -8,7 +8,8 @@ solve(SudokuBoard, ThirdViewBoard) :-
   array_list(StandardViewBoard, TempBoard),
   convertSudokuBoardToNewBoard(StandardViewBoard,ThirdViewBoard),
   checkConstraints(ThirdViewBoard),
-  labeling(ThirdViewBoard),
+  term_variables(ThirdViewBoard, Variables),
+  labelingWithCount(Variables),
   convertThirdViewBoardToSudokuBoard(ThirdViewBoard,Result),
   %printThirdViewBoard(ThirdViewBoard),
   printSudokuBoard(Result).
@@ -139,3 +140,28 @@ printSudokuBoard(Board) :-
   writeln("  ")
   ),
   writeln("end").
+
+labelingWithCount(AllVars) :-
+    init_backtracks,
+    ( foreach(Var, AllVars) do
+        count_backtracks,       % insert this before choice!
+        indomain(Var)
+    ),
+    get_backtracks(B),
+    printf("Solution found after %d backtracks%n", [B]).
+
+:- local variable(backtracks), variable(deep_fail).
+
+init_backtracks :-
+        setval(backtracks,0).
+
+get_backtracks(B) :-
+        getval(backtracks,B).
+
+count_backtracks :-
+        setval(deep_fail,false).
+count_backtracks :-
+        getval(deep_fail,false),        % may fail
+        setval(deep_fail,true),
+        incval(backtracks),
+        fail.

@@ -28,9 +28,34 @@ solve(ListBoard) :-
       alldifferent(Check)
     ),
     term_variables(Board, Variables),
-    labeling(Variables).
+    labelingWithCount(Variables).
 
 doubleListToArray([],[]).
 doubleListToArray([A|As],[B|Bs]) :-
     array_list(B,A),
     doubleListToArray(As,Bs).
+
+labelingWithCount(AllVars) :-
+    init_backtracks,
+    ( foreach(Var, AllVars) do
+        count_backtracks,       % insert this before choice!
+        indomain(Var)
+    ),
+    get_backtracks(B),
+    printf("Solution found after %d backtracks%n", [B]).
+
+:- local variable(backtracks), variable(deep_fail).
+
+init_backtracks :-
+        setval(backtracks,0).
+
+get_backtracks(B) :-
+        getval(backtracks,B).
+
+count_backtracks :-
+        setval(deep_fail,false).
+count_backtracks :-
+        getval(deep_fail,false),        % may fail
+        setval(deep_fail,true),
+        incval(backtracks),
+        fail.
