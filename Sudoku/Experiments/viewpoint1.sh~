@@ -10,7 +10,7 @@ echo execution time was $elapsed_time ms.
 
 echo expert
 start_time=$(python time.py)
-/home/bavo/Downloads/eclipse_basic\ \(1\)/bin/x86_64_linux/clpeclipse -b eclipse_sudoku_viewpoint1.ecl -b sudex_toledo.pl -e "puzzles(P, expert), solve(P)."
+/home/bavo/Downloads/clpeclipse/bin/x86_64_linux/clpeclipse -b eclipse_sudoku_viewpoint1.ecl -b sudex_toledo.pl -e "puzzles(P, expert), solve(P)."
 end_time=$(python time.py)
 elapsed_time=$(((end_time - start_time)))
 echo execution time was $elapsed_time ms.
