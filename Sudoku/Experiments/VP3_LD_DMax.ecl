@@ -10,7 +10,7 @@ solve(SudokuBoard, ThirdViewBoard) :-
   checkConstraints(ThirdViewBoard),
   %term_variables(ThirdViewBoard, Variables),
   %labelingWithCount(Variables),
-  search(ThirdViewBoard, 0, first_fail, indomain, complete, [backtrack(B)]),
+  search(ThirdViewBoard, 0, largest, indomain_max, complete, [backtrack(B)]),
   printf("Solution found after %d bachtracks%n", [B]).
   convertThirdViewBoardToSudokuBoard(ThirdViewBoard,Result),
   printSudokuBoard(Result).
