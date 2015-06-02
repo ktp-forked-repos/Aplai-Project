@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+./clpeclipse -b ~/Repos/Aplai-Project/Sudoku/eclipse_sudoku_viewpoint1.ecl -b ~/Repos/Aplai-Project/Sudoku/sudex_toledo.pl -e "puzzles(P, extra3), solve(P)."

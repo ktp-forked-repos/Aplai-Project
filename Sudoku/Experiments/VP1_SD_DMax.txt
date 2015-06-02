@@ -1,0 +1,38 @@
+verydifficult
+execution time was 13 ms.
+expert
+execution time was 14 ms.
+lambda
+execution time was 13 ms.
+hard17
+execution time was 13 ms.
+symme
+execution time was 13 ms.
+eastermonster
+execution time was 26 ms.
+tarek_052
+execution time was 19 ms.
+goldennugget
+execution time was 17 ms.
+coloin
+execution time was 14 ms.
+extra1
+execution time was 32 ms.
+extra2
+execution time was 14 ms.
+extra3
+execution time was 16 ms.
+extra4
+execution time was 15 ms.
+inkara2012
+execution time was 14 ms.
+clue18
+execution time was 14 ms.
+clue17
+execution time was 13 ms.
+sudowiki_nb28
+execution time was 20 ms.
+sudowiki_nb49
+execution time was 14 ms.
+veryeasy
+execution time was 30 ms.

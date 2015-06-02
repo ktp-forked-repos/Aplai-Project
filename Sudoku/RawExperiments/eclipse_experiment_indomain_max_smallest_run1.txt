@@ -1,0 +1,7 @@
+verydifficult
+Solution found after 1 backtracks
+execution time was 329 ms.
+expert
+Solution found after 9 backtracks
+execution time was 332 ms.
+lambda

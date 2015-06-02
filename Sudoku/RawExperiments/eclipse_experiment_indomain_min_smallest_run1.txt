@@ -1,0 +1,31 @@
+verydifficult
+Solution found after 0 backtracks
+execution time was 390 ms.
+expert
+Solution found after 23 backtracks
+execution time was 380 ms.
+lambda
+Solution found after 1445509 backtracks
+execution time was 300964 ms.
+hard17
+Solution found after 336280 backtracks
+execution time was 75274 ms.
+symme
+Solution found after 1394 backtracks
+execution time was 1053 ms.
+eastermonster
+Solution found after 3139 backtracks
+execution time was 1903 ms.
+tarek_052
+Solution found after 280 backtracks
+execution time was 601 ms.
+goldennugget
+Solution found after 10762 backtracks
+execution time was 4589 ms.
+coloin
+Solution found after 92069 backtracks
+execution time was 30386 ms.
+extra1
+Solution found after 14589995 backtracks
+execution time was 3266095 ms.
+extra2
