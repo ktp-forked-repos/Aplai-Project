@@ -148,7 +148,7 @@ eliminatePos, element(A,(X1,Y1),1) \ posElement(A,(X2,Y2),ListPos) <=> checkBox(
 % zelfde element alle matrices
 eliminatePos, element(A,(X,Y),1) \ posElement(B,(X,Y),ListPos) <=> A \= B, select(1,ListPos,NListPos) | posElement(B,(X,Y),NListPos). 
 
-eliminatePos(MAtrixCounter), posElement(A,(X,Y),PosList) <=> member(K,PosList), posElement(A,(X,Y),[K]),eliminatePos.
+eliminatePos, posElement(A,(X,Y),PosList) <=> member(K,PosList), posElement(A,(X,Y),[K]),eliminatePos.
 
 printBoard(9,9,9), element(9,(9,9),A) <=> writeln(A).
 printBoard(9,L,9), element(9,(L,9),A) <=> writeln(A), L1 is L + 1, printBoard(1,L1,1).
