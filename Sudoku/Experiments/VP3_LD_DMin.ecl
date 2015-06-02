@@ -12,8 +12,8 @@ solve(SudokuBoard, ThirdViewBoard) :-
   %labelingWithCount(Variables),
   search(ThirdViewBoard, 0, largest, indomain_min, complete, [backtrack(B)]),
   printf("Solution found after %d bachtracks%n", [B]),
-  convertThirdViewBoardToSudokuBoard(ThirdViewBoard,Result),
-  printSudokuBoard(Result).
+  convertThirdViewBoardToSudokuBoard(ThirdViewBoard,Result).
+  %printSudokuBoard(Result).
 
 convertSudokuBoardToNewBoard(StandardViewBoard,ThirdViewBoard) :-
   multifor([I,J],1,9,1), param(StandardViewBoard,ThirdViewBoard)
