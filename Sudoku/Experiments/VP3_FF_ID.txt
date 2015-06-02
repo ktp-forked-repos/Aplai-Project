@@ -1,0 +1,76 @@
+verydifficult
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 453 ms.
+expert
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 276 ms.
+lambda
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 264 ms.
+hard17
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 1 bachtracks
+execution time was 300 ms.
+symme
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 3 bachtracks
+execution time was 292 ms.
+eastermonster
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 87 bachtracks
+execution time was 395 ms.
+tarek_052
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 20 bachtracks
+execution time was 347 ms.
+goldennugget
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 11 bachtracks
+execution time was 331 ms.
+coloin
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 16 bachtracks
+execution time was 331 ms.
+extra1
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 284 ms.
+extra2
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 296 ms.
+extra3
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 286 ms.
+extra4
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 271 ms.
+inkara2012
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 108 bachtracks
+execution time was 478 ms.
+clue18
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 18 bachtracks
+execution time was 327 ms.
+clue17
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 291 ms.
+sudowiki_nb28
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 240 bachtracks
+execution time was 608 ms.
+sudowiki_nb49
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 328 bachtracks
+execution time was 827 ms.
+veryeasy
+File VP3_FF_ID.ecl, line 15: Singleton variable Result
+Solution found after 3 bachtracks
+execution time was 315 ms.

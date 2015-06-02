@@ -1,38 +1,55 @@
 verydifficult
-execution time was 14 ms.
+Solution found after 1 bachtracks
+execution time was 712 ms.
 expert
-execution time was 13 ms.
+Solution found after 842 bachtracks
+execution time was 407 ms.
 lambda
-execution time was 12 ms.
+Solution found after 433847 bachtracks
+execution time was 41747 ms.
 hard17
-execution time was 13 ms.
+Solution found after 159819 bachtracks
+execution time was 21907 ms.
 symme
-execution time was 12 ms.
+Solution found after 2141 bachtracks
+execution time was 697 ms.
 eastermonster
-execution time was 13 ms.
+Solution found after 8741 bachtracks
+execution time was 1749 ms.
 tarek_052
-execution time was 13 ms.
+Solution found after 4687 bachtracks
+execution time was 1162 ms.
 goldennugget
-execution time was 21 ms.
+Solution found after 63837 bachtracks
+execution time was 9755 ms.
 coloin
-execution time was 19 ms.
+Solution found after 12575 bachtracks
+execution time was 2409 ms.
 extra1
-execution time was 16 ms.
+Solution found after 72133768 bachtracks
+execution time was 8222636 ms.
 extra2
-execution time was 15 ms.
+Solution found after 671855 bachtracks
+execution time was 80158 ms.
 extra3
-execution time was 18 ms.
+Solution found after 433847 bachtracks
+execution time was 41507 ms.
 extra4
-execution time was 25 ms.
+Solution found after 520302 bachtracks
+execution time was 54575 ms.
 inkara2012
-execution time was 28 ms.
+Solution found after 489 bachtracks
+execution time was 328 ms.
 clue18
-execution time was 23 ms.
+Solution found after 133368 bachtracks
+execution time was 16925 ms.
 clue17
-execution time was 25 ms.
+Solution found after 73689 bachtracks
+execution time was 10683 ms.
 sudowiki_nb28
-execution time was 21 ms.
+Solution found after 1775791 bachtracks
+execution time was 235391 ms.
 sudowiki_nb49
-execution time was 16 ms.
+Solution found after 1521 bachtracks
+execution time was 665 ms.
 veryeasy
-execution time was 15 ms.

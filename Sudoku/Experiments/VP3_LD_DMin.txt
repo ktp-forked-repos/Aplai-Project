@@ -1,0 +1,76 @@
+verydifficult
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 315 ms.
+expert
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 377 ms.
+lambda
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 331 ms.
+hard17
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 1 bachtracks
+execution time was 330 ms.
+symme
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 3 bachtracks
+execution time was 334 ms.
+eastermonster
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 87 bachtracks
+execution time was 527 ms.
+tarek_052
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 20 bachtracks
+execution time was 372 ms.
+goldennugget
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 11 bachtracks
+execution time was 339 ms.
+coloin
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 16 bachtracks
+execution time was 349 ms.
+extra1
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 325 ms.
+extra2
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 313 ms.
+extra3
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 324 ms.
+extra4
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 301 ms.
+inkara2012
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 108 bachtracks
+execution time was 568 ms.
+clue18
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 18 bachtracks
+execution time was 374 ms.
+clue17
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 0 bachtracks
+execution time was 325 ms.
+sudowiki_nb28
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 240 bachtracks
+execution time was 864 ms.
+sudowiki_nb49
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 328 bachtracks
+execution time was 1292 ms.
+veryeasy
+File VP3_LD_DMin.ecl, line 15: Singleton variable Result
+Solution found after 3 bachtracks
+execution time was 331 ms.

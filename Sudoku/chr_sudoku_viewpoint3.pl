@@ -44,7 +44,6 @@ solve(SudokuBoard) :-
         elCount(8,0),
         oneCount(9,0),
         elCount(9,0),
-        occurences1([]).
         eliminatePos,
         printBoard(1,1,1),
         removeEverything.
