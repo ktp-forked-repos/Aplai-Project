@@ -27,7 +27,7 @@ solve(ListBoard) :-
       flatten(Block, Check),
       alldifferent(Check)
     ),
-    search(Board, 0, first_fail, indomain_min, complete, [backtrack(B)]),
+    search(Board, 0, first_fail, indomain, complete, [backtrack(B)]),
     printf("Solution found after %d bachtracks%n", [B]).
     %term_variables(Board, Variables),
     %labelingWithCount(Variables).
