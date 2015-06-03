@@ -64,7 +64,21 @@ convertHints([(XValue,YValue,Hint)|RestHints]) :-
         effectsOfHint(Hint,NextXValue,NextYValue,Coor),
         convertHints(RestHints).
         
-sElement((X1,1))
+initiateRowTally([Count], 10) :- rowCount(10, Count).                 
+initiateRowTally([Count|Tail], IDX) :-
+        rowCount(IDX, Count), 
+        NextIDX is IDX + 1,  
+        initiateRowTally(Tail, NextIDX).
+
+initiateColumnTally([Count], 10) :- colCount(10, Count).       
+initiateColumnTally([Count|Tail], IDX) :-
+        colCount(IDX, Count), 
+        NextIDX is IDX + 1,  
+        initiateColTally(Tail, NextIDX).
+        
+tElement((X,Y),Value) ==> ourOwnList()
+
+
 
 %-------------- Hints Constraints  ---------------------------------
 
@@ -87,6 +101,9 @@ effectsOfHint(middle,X,Y,[XTop,XDown,YLeft,YRight]), tElement((XTop,Y),Pos1), tE
 
 tElement((X,Y),[0]) \ sElement((X,Y),[0,1]) <=> sElement((X,Y),[0]).
 tElement((X,Y),[K|_]) \ sElement((X,Y),[0,1]) <=> K \= 0 | sElement((X,Y),[1]).
+
+sElement((X,Y),[0]) \ tElement((X,Y),[0,1,2,3,4]) <=> tElement((X,Y),[0]).
+sElement((X,Y),[1]) \ tElement((X,Y),[0,1,2,3,4]) <=> tElement((X,Y),[1,2,3,4]).
 
 %-------------- Occupied Constraints -------------------------------
 
