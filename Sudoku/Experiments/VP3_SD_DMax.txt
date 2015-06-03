@@ -2,74 +2,92 @@ verydifficult
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 319 ms.
+
 expert
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 322 ms.
+
 lambda
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 307 ms.
+
 hard17
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 320 ms.
+
 symme
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 32 bachtracks
 execution time was 584 ms.
+
 eastermonster
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 48 bachtracks
 execution time was 732 ms.
+
 tarek_052
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 63 bachtracks
 execution time was 657 ms.
+
 goldennugget
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 108 bachtracks
 execution time was 978 ms.
+
 coloin
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 121 bachtracks
 execution time was 682 ms.
+
 extra1
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 314 ms.
+
 extra2
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 320 ms.
+
 extra3
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 306 ms.
+
 extra4
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 319 ms.
+
 inkara2012
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 3 bachtracks
 execution time was 349 ms.
+
 clue18
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 49 bachtracks
 execution time was 648 ms.
+
 clue17
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 0 bachtracks
 execution time was 310 ms.
+
 sudowiki_nb28
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 492 bachtracks
 execution time was 3505 ms.
+
 sudowiki_nb49
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 140 bachtracks
 execution time was 1498 ms.
+
 veryeasy
 File VP3_SD_DMax.ecl, line 15: Singleton variable Result
 Solution found after 3 bachtracks

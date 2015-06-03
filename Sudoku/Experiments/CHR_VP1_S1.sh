@@ -10,7 +10,7 @@ echo execution time was $elapsed_time ms.
 
 echo expert
 start_time=$(python time.py)
-swipl -g 'puzzles(P,  expert), chr_sudoku_viewpoint1S1S1:solve(P),halt' -f 'sudex_toledo.pl' 'CHR_VP1_S1.pl'
+swipl -g 'puzzles(P,  expert), chr_sudoku_viewpoint1S1:solve(P),halt' -f 'sudex_toledo.pl' 'CHR_VP1_S1.pl'
 end_time=$(python time.py)
 elapsed_time=$(((end_time - start_time)))
 echo execution time was $elapsed_time ms.
