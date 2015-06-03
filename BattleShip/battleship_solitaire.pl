@@ -78,8 +78,6 @@ initiateColumnTally([Count|Tail], IDX) :-
         
 tElement((X,Y),Value) ==> ourOwnList()
 
-
-
 %-------------- Hints Constraints  ---------------------------------
 
 removeTElement(X,Y), tElement((X,Y),_), sElement((X,Y),_) <=> true.
