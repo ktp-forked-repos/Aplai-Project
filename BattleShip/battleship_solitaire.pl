@@ -119,6 +119,15 @@ tElement((X1,1),[0]) \ tElement((X2,1),[Value|_]) <=>  X1 \= X2, Value \= 0 | tE
 tElement((X1,12),[0]) \ tElement((X2,12),[0,1,2,3,4]) <=>  X1 \= X2 | tElement((X2,12),[0]).
 tElement((X1,12),[0]) \ tElement((X2,12),[Value|_]) <=>  X1 \= X2, Value \= 0 | tElement((X2,12),[0]).
 
+%-------------- Tally Constraints    -------------------------------
+
+%-------------- Cardinality Constraints ----------------------------
+
+
+
+
+%-------------- Info Hints -----------------------------------------
+
 hintInfo(water, '.', [0], [0]).
 hintInfo(circle, c, [1], [1]).
 hintInfo(top, t, [2,3,4],[1]).
