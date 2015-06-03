@@ -55,12 +55,23 @@ eliminatePos, element((X1,Y),AssignedValue) \ posElement((X2,Y),ListPos) <=> X1 
 eliminatePos, element((X1,Y1),AssignedValue) \ posElement((X2,Y2),ListPos) <=> checkBox(X1,X2,Y1,Y2), select(AssignedValue,ListPos,NListPos) | posElement((X2,Y2),NListPos). 
 
 % Kies een volgende waarde voor het PosElement met de kleinste aantal mogelijkheden.
+
+%-------- Eerste Search
 eliminatePos <=> findSmallestDomain(2). 
 
 findSmallestDomain(DomainLength), posElement((X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), element((X,Y),K), eliminatePos. 
 
 findSmallestDomain(9) <=> true.
 findSmallestDomain(DomainLength) <=> NewDomainLength is DomainLength + 1, findSmallestDomain(NewDomainLength). 
+
+%----- Tweede search
+
+eliminatePos <=> findSmallestDomain(9). 
+
+findSmallestDomain(DomainLength), posElement((X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), element((X,Y),K), eliminatePos. 
+
+findSmallestDomain(1) <=> true.
+findSmallestDomain(DomainLength) <=> NewDomainLength is DomainLength - 1, findSmallestDomain(NewDomainLength). 
 
 %blockconstraint @ element((X1,Y1),A), element((X2,Y2),A) <=> checkBox(X1,X2,Y1,Y2) | false.
 
