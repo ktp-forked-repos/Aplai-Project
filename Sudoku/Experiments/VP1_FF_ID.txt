@@ -1,57 +1,75 @@
 verydifficult
 Solution found after 1 bachtracks
 execution time was 718 ms.
+
 expert
 Solution found after 18 bachtracks
 execution time was 241 ms.
+
 lambda
 Solution found after 977 bachtracks
 execution time was 306 ms.
+
 hard17
 Solution found after 419 bachtracks
 execution time was 271 ms.
+
 symme
 Solution found after 338 bachtracks
 execution time was 284 ms.
+
 eastermonster
 Solution found after 101 bachtracks
 execution time was 256 ms.
+
 tarek_052
 Solution found after 130 bachtracks
 execution time was 262 ms.
+
 goldennugget
 Solution found after 358 bachtracks
 execution time was 284 ms.
+
 coloin
 Solution found after 83 bachtracks
 execution time was 251 ms.
+
 extra1
 Solution found after 182 bachtracks
 execution time was 265 ms.
+
 extra2
 Solution found after 7690 bachtracks
 execution time was 682 ms.
+
 extra3
 Solution found after 977 bachtracks
 execution time was 305 ms.
+
 extra4
 Solution found after 2097 bachtracks
 execution time was 398 ms.
+
 inkara2012
 Solution found after 273 bachtracks
 execution time was 285 ms.
+
 clue18
 Solution found after 439 bachtracks
 execution time was 290 ms.
+
 clue17
 Solution found after 270 bachtracks
 execution time was 266 ms.
+
 sudowiki_nb28
 Solution found after 2221 bachtracks
 execution time was 420 ms.
+
 sudowiki_nb49
 Solution found after 655 bachtracks
 execution time was 309 ms.
+
 veryeasy
 Solution found after 0 bachtracks
 execution time was 241 ms.

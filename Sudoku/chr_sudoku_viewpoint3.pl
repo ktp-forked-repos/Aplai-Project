@@ -1,6 +1,8 @@
 :- module(chr_sudoku_viewpoint3,[]).
 :- use_module(library(chr)).
 :- use_module(library(lists)).
+:- use_module(library(clpfd)).
+
 
 :- chr_option(optimize,full).
 
@@ -117,7 +119,7 @@ posElement(A,(X,Y),[0]) <=> element(A,(X,Y),0), upElCount(A).
 
 
 %aantalElementen(MatrixNumber,81), CountVanEentjes(Value) <=> Value == 9 | true.
-%aantalElementen(MatrixNumber,Number), CountVanEentjes(Value) <=> Value <= 9 | true.   
+%aantalElementen(MatrixNumber,Number), CountVanEentjes(Value) <=> Value <= 9 | true.
 
 oneCount(A, Value), upOneCount(A) <=> NewValue is Value + 1 , oneCount(A, NewValue).
 elCount(A, Value), upElCount(A) <=> NewValue is Value + 1 , elCount(A, NewValue).
@@ -133,19 +135,19 @@ columnConstraint @ element(A,(X1,Y),1), element(A,(X2,Y),1) <=> X1 == X2.
 blockConstraint @ element(A,(X1,Y1),1), element(A,(X2,Y2),1) <=> checkBox(X1,X2,Y1,Y2) | false.
 
 elementConstraint @ element(A,(X,Y),1), element(B,(X,Y),1) <=> A == B.
-               
+
 % zelfde matrix row
 
-eliminatePos, element(A,(X,Y2),1) \ posElement(A,(X,Y1),ListPos) <=> Y1 \= Y2, select(1,ListPos,NListPos) | posElement(A,(X,Y1),NListPos). 
+eliminatePos, element(A,(X,Y2),1) \ posElement(A,(X,Y1),ListPos) <=> Y1 \= Y2, select(1,ListPos,NListPos) | posElement(A,(X,Y1),NListPos).
 
 % zelfde matrix kolom
-eliminatePos, element(A,(X1,Y),1) \ posElement(A,(X2,Y),ListPos) <=> X1 \= X2, select(1,ListPos,NListPos) | posElement(A,(X2,Y),NListPos).  
+eliminatePos, element(A,(X1,Y),1) \ posElement(A,(X2,Y),ListPos) <=> X1 \= X2, select(1,ListPos,NListPos) | posElement(A,(X2,Y),NListPos).
 
 % zelfde matrix block
-eliminatePos, element(A,(X1,Y1),1) \ posElement(A,(X2,Y2),ListPos) <=> checkBox(X1,X2,Y1,Y2), select(1,ListPos,NListPos) | posElement(A,(X2,Y2),NListPos). 
+eliminatePos, element(A,(X1,Y1),1) \ posElement(A,(X2,Y2),ListPos) <=> checkBox(X1,X2,Y1,Y2), select(1,ListPos,NListPos) | posElement(A,(X2,Y2),NListPos).
 
 % zelfde element alle matrices
-eliminatePos, element(A,(X,Y),1) \ posElement(B,(X,Y),ListPos) <=> A \= B, select(1,ListPos,NListPos) | posElement(B,(X,Y),NListPos). 
+eliminatePos, element(A,(X,Y),1) \ posElement(B,(X,Y),ListPos) <=> A \= B, select(1,ListPos,NListPos) | posElement(B,(X,Y),NListPos).
 
 eliminatePos, posElement(A,(X,Y),PosList) <=> member(K,PosList), posElement(A,(X,Y),[K]),eliminatePos.
 
