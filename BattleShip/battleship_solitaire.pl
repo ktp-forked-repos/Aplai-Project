@@ -1,5 +1,6 @@
 :- module(chr_battleship_solitaire,[]).
 :- use_module(library(chr)).
+:- use_module(library(clpfd)).
 
 %:- chr_option(optimize,full).
 
@@ -20,12 +21,17 @@
 :- chr_constraint removeElements/0.
 :- chr_constraint removeTElement(+natural,+natural).
 :- chr_constraint effectsOfHint(+element,+natural,+natural,+listOfPossibilities).
+:- chr_constraint rowCount(+natural,+natural).
+:- chr_constraint colCount(+natural,+natural).
+:- chr_constraint eliminatePos/0.
+:- chr_constraint findSmallestDomain(+natural).
 
 solve(Hints,RowCounter,ColumnCounter,_) :-
         makeBoards(1,1),
         convertHints(Hints),
-        initiateRowTally(RowCounter, 1),
-        initiateColumnTally(ColumnCounter, 1),
+        initiateRowTally(RowCounter, 2),
+        initiateColumnTally(ColumnCounter, 2),
+        eliminatePos,
         printBoard(1,1,1),
         removeElements.
 
@@ -64,19 +70,17 @@ convertHints([(XValue,YValue,Hint)|RestHints]) :-
         effectsOfHint(Hint,NextXValue,NextYValue,Coor),
         convertHints(RestHints).
         
-initiateRowTally([Count], 10) :- rowCount(10, Count).                 
+initiateRowTally([Count], 11) :- rowCount(11, Count).                 
 initiateRowTally([Count|Tail], IDX) :-
         rowCount(IDX, Count), 
         NextIDX is IDX + 1,  
         initiateRowTally(Tail, NextIDX).
 
-initiateColumnTally([Count], 10) :- colCount(10, Count).       
+initiateColumnTally([Count], 11) :- colCount(11, Count).       
 initiateColumnTally([Count|Tail], IDX) :-
         colCount(IDX, Count), 
         NextIDX is IDX + 1,  
-        initiateColTally(Tail, NextIDX).
-        
-tElement((X,Y),Value) ==> ourOwnList()
+        initiateColumnTally(Tail, NextIDX).
 
 %-------------- Hints Constraints  ---------------------------------
 
@@ -100,6 +104,8 @@ effectsOfHint(middle,X,Y,[XTop,XDown,YLeft,YRight]), tElement((XTop,Y),Pos1), tE
 tElement((X,Y),[0]) \ sElement((X,Y),[0,1]) <=> sElement((X,Y),[0]).
 tElement((X,Y),[K|_]) \ sElement((X,Y),[0,1]) <=> K \= 0 | sElement((X,Y),[1]).
 
+sElement((3,1),[0,1]) <=> sElement((3,1),[0]).
+
 sElement((X,Y),[0]) \ tElement((X,Y),[0,1,2,3,4]) <=> tElement((X,Y),[0]).
 sElement((X,Y),[1]) \ tElement((X,Y),[0,1,2,3,4]) <=> tElement((X,Y),[1,2,3,4]).
 
@@ -121,10 +127,23 @@ tElement((X1,12),[0]) \ tElement((X2,12),[Value|_]) <=>  X1 \= X2, Value \= 0 | 
 
 %-------------- Tally Constraints    -------------------------------
 
-%-------------- Cardinality Constraints ----------------------------
+sElement((1,R),[Value1]), sElement((2,R),[Value2]), sElement((3,R),[Value3]), sElement((4,R),[Value4]),
+                sElement((5,R),[Value5]), sElement((6,R),[Value6]), sElement((7,R),[Value7]), sElement((8,R),[Value8]),
+                sElement((9,R),[Value9]) \ rowCount(R, RowCount) <=> global_cardinality([Value1,Value2,Value3,Value4,Value5,Value6,Value7,Value8,Value9], [RowCount-1]) | true.
+sElement((9,1),[Value1]), sElement((9,2),[Value2]), sElement((9,3),[Value3]), sElement((9,4),[Value4]),
+                sElement((9,5),[Value5]), sElement((9,6),[Value6]), sElement((9,7),[Value7]), sElement((9,8),[Value8]),
+                sElement((9,9),[Value9]) \ colCount(9, ColCount) <=> not(global_cardinality([Value1,Value2,Value3,Value4,Value5,Value6,Value7,Value8,Value9], [ColCount-1])) | false.
 
+%-------------- Ladder Constraints ----------------------------
 
+%-------------- Search ----------------------------------------
 
+eliminatePos <=> findSmallestDomain(2). 
+
+findSmallestDomain(DomainLength), tElement((X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), tElement((X,Y),[K]), eliminatePos. 
+
+findSmallestDomain(5) <=> true.
+findSmallestDomain(DomainLength) <=> NewDomainLength is DomainLength + 1, findSmallestDomain(NewDomainLength). 
 
 %-------------- Info Hints -----------------------------------------
 
@@ -148,7 +167,13 @@ indicesCorner(X,Y,[XTop,XDown,YLeft,YRight]) :-
         XTop is X - 1,
         XDown is X + 1,
         YLeft is Y - 1,  
-        YRight is Y + 1.                    
+        YRight is Y + 1.
+
+indicesLeft(Y,[Y1,Y2,Y3,Y4]) :-
+        Y1 is Y - 1,
+        Y2 is Y - 2,
+        Y3 is Y - 3,
+        Y4 is Y - 4.                    
 
 %-------------- PrintBoards  --------------------------------------
 
