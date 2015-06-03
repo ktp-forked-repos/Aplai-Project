@@ -8,16 +8,23 @@
 :- chr_type yvalue == natural.
 :- chr_type position ---> (xvalue,yvalue).
 :- chr_type listOfPossibilities ---> [natural | list(natural)].
+:- chr_type boolean ---> 1 ; 0.
 
 :- chr_constraint posElement(+position,+listOfPossibilities).
 :- chr_constraint eliminatePos/0.
+:- chr_constraint count_backtracks/0.
+:- chr_constraint deep_fail(+boolean).
+:- chr_constraint backtracks(+natural).
+:- chr_constraint output_backtracks/0.
 :- chr_constraint element(+position,+natural).
 :- chr_constraint printBoard(+natural,+natural).
 :- chr_constraint findSmallestDomain(+natural).
 
 solve(SudokuBoard) :-
+        backtracks(0),
         makeBoardDomain(SudokuBoard,1),
         eliminatePos,
+        output_backtracks,
         printBoard(1,1).
 
 makeBoardDomain([],_).
@@ -59,7 +66,7 @@ eliminatePos, element((X1,Y1),AssignedValue) \ posElement((X2,Y2),ListPos) <=> c
 %-------- Eerste Search
 eliminatePos <=> findSmallestDomain(2).
 
-findSmallestDomain(DomainLength), posElement((X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | member(K,PosList), element((X,Y),K), eliminatePos.
+findSmallestDomain(DomainLength), posElement((X,Y),PosList) <=> length(PosList,LengthList), DomainLength == LengthList | count_backtracks, member(K,PosList), element((X,Y),K), eliminatePos.
 
 findSmallestDomain(9) <=> true.
 findSmallestDomain(DomainLength) <=> NewDomainLength is DomainLength + 1, findSmallestDomain(NewDomainLength).
@@ -73,8 +80,6 @@ findSmallestDomain(DomainLength) <=> NewDomainLength is DomainLength + 1, findSm
 %findSmallestDomain(1) <=> true.
 %findSmallestDomain(DomainLength) <=> NewDomainLength is DomainLength - 1, findSmallestDomain(NewDomainLength).
 
-%blockconstraint @ element((X1,Y1),A), element((X2,Y2),A) <=> checkBox(X1,X2,Y1,Y2) | false.
-
 checkBox(X1,X2,Y1,Y2) :-
         Block1 is (3*((X1-1) // 3)) + ((Y1-1) // 3) + 1,
         Block2 is (3*((X2-1) // 3)) + ((Y2-1) // 3) + 1,
@@ -83,3 +88,9 @@ checkBox(X1,X2,Y1,Y2) :-
 printBoard(9,9), element((9,9),A) <=> writeln(A).
 printBoard(K,9), element((K,9),A) <=> writeln(A), K1 is K + 1, printBoard(K1,1).
 printBoard(K,L), element((K,L),A) <=> write(A), Y is L + 1, printBoard(K,Y).
+
+count_backtracks <=> deep_fail(0).
+
+deep_fail(0), backtracks(B) <=> deep_fail(1), B1 is B + 1, backtracks(B1).
+
+backtracks(B) \ output_backtracks <=> write("Solution found after "), write(B), writeln(" backtracks").
